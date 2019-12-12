@@ -1,8 +1,8 @@
 from Request import Request
 
-from Config.HttpConfig import Config
-from components.Pressure.pressure import Pressure
-from components.Abnormal.NoneException import NoneException
+from HttpConfig import Config
+from pressure import Pressure
+from NoneException import NoneException
 
 
 class ConvenienceHttp(Request):

@@ -1,5 +1,5 @@
 import requests
-from Abnormal.UrlAbnormal import UrlAbnormal
+from UrlAbnormal import UrlAbnormal
 
 
 class Request:

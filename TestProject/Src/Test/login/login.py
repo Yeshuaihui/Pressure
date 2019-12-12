@@ -1,6 +1,6 @@
 import json
-from Config.HttpConfig import Config
-from components.Http.BusinessHttp import BusinessHttp
+from HttpConfig import Config
+from BusinessHttp import BusinessHttp
 
 
 class Login(BusinessHttp):
@@ -22,7 +22,7 @@ class Login(BusinessHttp):
 if __name__ == "__main__":
     login = Login(url="/api/account/OppoLogin",
                   data={"uuid": "111111", "firstname": "ceshi", "lastname": "ceshi", "mail": "haijiang.yan@8travelpay.com", "mobile": "15949030544",
-                        "approvelno": "ceshi", "level": "3", "ts": "20191211144600", "sign": "c95b5dc0c2c930b4f05a1b9599c506bc"},
+                        "approvelno": "ceshi", "level": "3", "ts": "20191212173124", "sign": "7bbdef2912997ee34088466975d9bc7b"},
                   method="Post")
     login.doBusinessHttp()
     # pressure= login.PressureRequest()

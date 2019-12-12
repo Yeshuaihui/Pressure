@@ -3,7 +3,7 @@ import random
 import sys
 import os
 
-from Multithreading.myThread import myThread
+from myThread import myThread
 
 
 class Pressure:
