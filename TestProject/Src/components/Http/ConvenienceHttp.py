@@ -1,7 +1,8 @@
 from Request import Request
 
-from Config.HttpConfig import Header, cookie, baseHost, Config
+from Config.HttpConfig import Config
 from components.Pressure.pressure import Pressure
+from components.Abnormal.NoneException import NoneException
 
 
 class ConvenienceHttp(Request):
@@ -11,14 +12,17 @@ class ConvenienceHttp(Request):
         self.data = data
         self.method = method
         self.RequestStatus = 0
+        self.Project=None
 
     def befor(self, req: "当前请求相关信息(当前对象)"):
         '''
         请求前执行函数
         '''
-        req.Header = Header
-        req.cookie = cookie
-        req.baseHost = baseHost
+        if self.Project is None:
+            raise(NoneException("Project"))
+        req.Header = Config[self.Project]['Header']
+        req.cookie = Config[self.Project]['cookie']
+        req.baseHost =Config[self.Project]['baseHost'] 
 
     def baseAfter(self, resp: "当前请求返回相关信息", req: "当前请求相关信息(当前对象)"):
         '''

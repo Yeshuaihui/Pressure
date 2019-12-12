@@ -1,5 +1,5 @@
-class UrlAbnormal(Exception):
+from NoneException import NoneException
+class UrlAbnormal(NoneException):
     # Url为空异常
     def __init__(self):
-        super().__init__(self)
-        self.errorinfo="Url不能为空"
+        super().__init__(self,"Url")

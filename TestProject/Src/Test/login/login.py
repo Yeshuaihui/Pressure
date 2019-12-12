@@ -1,19 +1,20 @@
 import json
-from Config.HttpConfig import Header, cookie
+from Config.HttpConfig import Config
 from components.Http.BusinessHttp import BusinessHttp
 
 
 class Login(BusinessHttp):
     def __init__(self, url, data, method):
         super().__init__(url, data, method)
+        self.Project="OPPOProject"
 
     def after(self, resp, req):
         if resp.ok:
             dic = json.loads(resp.text)
             if(dic["code"] == 0):
-                Header = {"Authorization": "basic %s" %
+                Config[self.Project]["Header"] = {"Authorization": "basic %s" %
                           (dic["result"]["access_token"])}
-                print(Header)
+                print(Config[self.Project]["Header"])
             else:
                 print(dic)
 
