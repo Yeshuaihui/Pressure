@@ -3,8 +3,18 @@
 
 测试的Demo可以看TestProject/Src/Test/login.py中
 
+login类中的after是重写父类ConvenienceHttp中的after
+
+after会在请求完成之后调用一次
+
+可以在after中做断言之类的操作
+
+在基类ConvenienceHttp中baseAfter函数处理了返回如果没问题对当前请求状态的记录可用于统计请求成功与失败信息
+
 调用单次请求可以直接创建好对象之后调用doBusinessHttp()函数可以发起一次请求
 
 如果需要压测的话调用对象的PressureRequest()函数默认压100次
+
+压测对象中可以拿到timeSum【表示压测耗时总量】、timeAvg【表示压测的平均耗时】
 
 目前压测比较简单 还没做持续性的压测 后面会出
