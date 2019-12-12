@@ -12,7 +12,7 @@ class ConvenienceHttp(Request):
         self.data = data
         self.method = method
         self.RequestStatus = 0
-        self.Project=None
+        self.Project = None
 
     def befor(self, req: "当前请求相关信息(当前对象)"):
         '''
@@ -22,7 +22,7 @@ class ConvenienceHttp(Request):
             raise(NoneException("Project"))
         req.Header = Config[self.Project]['Header']
         req.cookie = Config[self.Project]['cookie']
-        req.baseHost =Config[self.Project]['baseHost'] 
+        req.baseHost = Config[self.Project]['baseHost']
 
     def baseAfter(self, resp: "当前请求返回相关信息", req: "当前请求相关信息(当前对象)"):
         '''
