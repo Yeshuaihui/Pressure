@@ -1,10 +1,6 @@
 from Request import Request
-import sys
-import os
-sys.path.append("..")
-sys.path.extend([os.path.join(root, name)
-                 for root, dirs, _ in os.walk("../") for name in dirs])
-from Config.HttpConfig import Header, cookie, baseHost
+
+from Config.HttpConfig import Header, cookie, baseHost, Config
 from components.Pressure.pressure import Pressure
 
 
@@ -14,7 +10,7 @@ class ConvenienceHttp(Request):
         self.url = url
         self.data = data
         self.method = method
-        self.RequestStatus=0
+        self.RequestStatus = 0
 
     def befor(self, req: "当前请求相关信息(当前对象)"):
         '''
@@ -29,10 +25,10 @@ class ConvenienceHttp(Request):
         基类必须记录当前请求返回的状态
         '''
         if(resp.ok):
-            self.RequestStatus=1
+            self.RequestStatus = 1
         else:
-            self.RequestStatus=-1
-        self.after(resp,req)
+            self.RequestStatus = -1
+        self.after(resp, req)
 
     def after(self, resp: "当前请求返回相关信息", req: "当前请求相关信息(当前对象)"):
         '''
