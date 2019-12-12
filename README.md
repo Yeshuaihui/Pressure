@@ -1,7 +1,7 @@
 # Pressure
 一个可以很轻松做到压测的python脚本程序
 
-测试的Demo可以看TestProject/Src/Test/login.py中
+测试的Demo可以看TestProject/Src/Test/main.py中
 
 login类中的after是重写父类ConvenienceHttp中的after
 
