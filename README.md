@@ -5,6 +5,10 @@
 
 login类中的after是重写父类ConvenienceHttp中的after
 
+login类型初始化时设置一下基类的Project属性以适配更多网络地址可以做测试
+  假如说 在abc.com站点做了一些请求后需要跳转到其他站点aaa.com
+  按照之前的方式是不支持的，所以修改了下配置结构，可以在这个项目中请求到不同的站点
+
 after会在请求完成之后调用一次
 
 可以在after中做断言之类的操作
