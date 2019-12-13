@@ -1,8 +1,9 @@
 from Request import Request
-
 from HttpConfig import Config
 from pressure import Pressure
 from NoneException import NoneException
+from LogComponents import LogComponents
+import threading
 
 
 class ConvenienceHttp(Request):
@@ -13,6 +14,8 @@ class ConvenienceHttp(Request):
         self.method = method
         self.RequestStatus = 0
         self.Project = None
+        self.SuccessAndFailure=list()
+        self.lock=threading.Lock()
 
     def befor(self, req: "当前请求相关信息(当前对象)"):
         '''
@@ -28,10 +31,12 @@ class ConvenienceHttp(Request):
         '''
         基类必须记录当前请求返回的状态
         '''
+        self.lock.acquire()
         if(resp.ok):
-            self.RequestStatus = 1
+            self.SuccessAndFailure.append(1)
         else:
-            self.RequestStatus = -1
+            self.SuccessAndFailure.append(-1)
+        self.lock.release()
         self.after(resp, req)
 
     def after(self, resp: "当前请求返回相关信息", req: "当前请求相关信息(当前对象)"):
@@ -41,7 +46,7 @@ class ConvenienceHttp(Request):
         '''
         pass
 
-    def PressureRequest(self, count: int = 100):
+    def PressureRequest(self, count:"压测线程数" = 100):
         '''
         压测实现默认请求100次
         '''
@@ -59,4 +64,34 @@ class ConvenienceHttp(Request):
         '''
         单个线程请求完成后执行函数
         '''
-        print("线程%s已完成耗时%f" % (thread.id, thread.timeConsuming))
+        LogComponents.write("线程%s已完成耗时%f" % (thread.id, thread.timeConsuming))
+
+    @property
+    def succesSrate(self):
+        '''
+        成功率
+        '''
+        return self.SuccessAndFailure.count(1)/len(self.SuccessAndFailure)
+    
+    @property
+    def failureSrate(self):
+        '''
+        失败率
+        '''
+        return self.SuccessAndFailure.count(-1)/len(self.SuccessAndFailure)
+
+    def Duration(self, duration: "持续时间(秒)"=10, count: "压测线程数"=100,sleepTime:int =1):
+        '''
+        在指定时间内每秒发起count次请求
+        '''
+        pressure = Pressure()
+        return pressure.Duration(duration,self.DoRequest, self.method, self.PressureAfter, count,sleepTime)
+        
+    def DurationAdd(self, duration: "持续时间(秒)"=10, add: "每次增加请求数"=100,sleepTime:int =1):
+        '''
+        在指定时间内每秒执行一次压测
+        每次压测增加add次请求
+        '''
+        pressure = Pressure()
+        return pressure.DurationAdd(duration,self.DoRequest, self.method, self.PressureAfter, add,sleepTime)
+

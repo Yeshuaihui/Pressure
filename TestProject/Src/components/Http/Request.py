@@ -74,12 +74,12 @@ class Request:
         self.afterRequest(switch[method], self)
 
 
-if __name__ == "__main__":
-    def befor(req):
-        req.Header = {}
-        req.cookie = ""
-        req.baseHost = "http://baidu.com"
+# if __name__ == "__main__":
+#     def befor(req):
+#         req.Header = {}
+#         req.cookie = ""
+#         req.baseHost = "http://baidu.com"
 
-    def aftr(resp, req):
-        print(resp.text)
-    print(Request(befor, aftr).Get("/"))
+#     def aftr(resp, req):
+#         print(resp.text)
+#     print(Request(befor, aftr).Get("/"))

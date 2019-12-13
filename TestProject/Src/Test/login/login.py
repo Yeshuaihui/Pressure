@@ -17,14 +17,3 @@ class Login(BusinessHttp):
                 print(Config[self.Project]["Header"])
             else:
                 print(dic)
-
-
-if __name__ == "__main__":
-    login = Login(url="/api/account/OppoLogin",
-                  data={"uuid": "111111", "firstname": "ceshi", "lastname": "ceshi", "mail": "haijiang.yan@8travelpay.com", "mobile": "15949030544",
-                        "approvelno": "ceshi", "level": "3", "ts": "20191212173124", "sign": "7bbdef2912997ee34088466975d9bc7b"},
-                  method="Post")
-    login.doBusinessHttp()
-    # pressure= login.PressureRequest()
-    # print("总时长%f"%(pressure.timeSum))
-    # print("平均时长%f"%(pressure.timeAvg))
