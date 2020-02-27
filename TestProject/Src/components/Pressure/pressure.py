@@ -1,7 +1,7 @@
 import time
-import random
-import sys
-import os
+# import random
+# import sys
+# import os
 import threading
 from myThread import myThread
 from PressureParamter import PressureParamter
@@ -11,11 +11,10 @@ class Pressure:
     '''
     多线程执行任务
     '''
-
     def __init__(self):
         self.listthread = list()
         self.timesum = float(0)
-        self.lock=threading.Lock()
+        self.lock = threading.Lock()
 
     def Run(self, funExec, paramter, resultFun, execCount=int):
         '''
@@ -30,39 +29,56 @@ class Pressure:
         for item in self.listthread:
             item.join()
 
-    def Duration(self, duration, funExec, paramter, resultFun, execCount=int,sleepTime:int =1):
-        listPressure=list()
+    def Duration(self,
+                 duration,
+                 funExec,
+                 paramter,
+                 resultFun,
+                 execCount=int,
+                 sleepTime: int = 1):
+        listPressure = list()
         for index in range(0, duration):
-            listPressure.append(self.DoDuration(index,funExec, paramter, resultFun, execCount))
-            if index<duration-1:
+            listPressure.append(
+                self.DoDuration(index, funExec, paramter, resultFun,
+                                execCount))
+            if index < duration - 1:
                 time.sleep(sleepTime)
         return listPressure
 
-    def DurationAdd(self, duration, funExec, paramter, resultFun, add=int,sleepTime:int =1):
-        listPressure=list()
-        initCount=add
+    def DurationAdd(self,
+                    duration,
+                    funExec,
+                    paramter,
+                    resultFun,
+                    add=int,
+                    sleepTime: int = 1):
+        listPressure = list()
+        initCount = add
         for index in range(0, duration):
-            listPressure.append(self.DoDuration(index,funExec, paramter, resultFun, initCount))
-            initCount+=add
-            if index<duration-1:
+            listPressure.append(
+                self.DoDuration(index, funExec, paramter, resultFun,
+                                initCount))
+            initCount += add
+            if index < duration - 1:
                 time.sleep(sleepTime)
         return listPressure
 
     def DoRun(self, paramter: PressureParamter):
-        self.Run(paramter.funExec, paramter.paramter,
-                 paramter.resultFun, paramter.execCount)
+        self.Run(paramter.funExec, paramter.paramter, paramter.resultFun,
+                 paramter.execCount)
 
-    def DoDuration(self,index,funExec, paramter, resultFun, execCount):
+    def DoDuration(self, index, funExec, paramter, resultFun, execCount):
         pressure = Pressure()
-        print("curr_index%i"%(index))
-        pressure.Run(self.DoRun,PressureParamter(
-            funExec, paramter, resultFun, execCount),None,1)
+        print("curr_index%i" % (index))
+        pressure.Run(self.DoRun,
+                     PressureParamter(funExec, paramter, resultFun, execCount),
+                     None, 1)
         return pressure
 
     @property
     def timeSum(self):
         '''总时长'''
-        if(self.timesum):
+        if (self.timesum):
             return self.timesum
         timesum = float(0)
         for item in self.listthread:
@@ -73,7 +89,7 @@ class Pressure:
     @property
     def timeAvg(self):
         '''平均时长'''
-        return self.timeSum/len(self.listthread)
+        return self.timeSum / len(self.listthread)
 
 
 # if __name__ == "__main__":
