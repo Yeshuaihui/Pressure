@@ -1,7 +1,5 @@
 import threading
 import uuid
-import time
-import random
 import datetime
 
 
@@ -11,14 +9,14 @@ class myThread(threading.Thread):
     可以异步线程执行传入函数并传入指定参数
     最后以函数结果作为参数执行传入的处理结果函数
     '''
-    def __init__(self, funExec:"线程执行的函数", paramter:"线程执行函数的参数", resultFun:"函数执行完成返回结果的处理方式"=None, id:"线程id,不传入则使用guid"=None):
+    def __init__(self, funExec, paramter, resultFun=None, id=None):
         threading.Thread.__init__(self)
         self.funExec = funExec
         self.paramter = paramter
         self.resultFun = resultFun
         self.beginTime = None
         self.endTime = None
-        if(id is None):
+        if (id is None):
             self.id = uuid.uuid1()
         else:
             self.id = id
@@ -38,7 +36,7 @@ class myThread(threading.Thread):
         '''
         当前线程耗时
         '''
-        return (self.endTime-self.beginTime).total_seconds()
+        return (self.endTime - self.beginTime).total_seconds()
 
 
 # if __name__ == "__main__":
