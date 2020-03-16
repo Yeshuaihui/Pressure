@@ -8,7 +8,7 @@ import threading
 
 class ConvenienceHttp(Request):
     def __init__(self, url, data, method):
-        super().__init__(self.befor, self.baseAfter)
+        super().__init__(self.baseBefor, self.baseAfter)
         self.url = url
         self.data = data
         self.method = method
@@ -17,7 +17,7 @@ class ConvenienceHttp(Request):
         self.SuccessAndFailure = list()
         self.lock = threading.Lock()
 
-    def befor(self, req):
+    def baseBefor(self, req):
         '''
         请求前执行函数
         '''
@@ -26,6 +26,7 @@ class ConvenienceHttp(Request):
         req.Header = Config[self.Project]['Header']
         req.cookie = Config[self.Project]['cookie']
         req.baseHost = Config[self.Project]['baseHost']
+        self.befor(req)
 
     def baseAfter(self, resp, req):
         '''
@@ -38,6 +39,13 @@ class ConvenienceHttp(Request):
             self.SuccessAndFailure.append(-1)
         self.lock.release()
         self.after(resp, req)
+
+    def befor(self, req):
+        '''
+        执行请求前执行函数
+        由子类实现
+        '''
+        pass
 
     def after(self, resp, req):
         '''
