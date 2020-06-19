@@ -18,9 +18,7 @@ def atexit_fun():
 
 
 if __name__ == "__main__":
-    oppologin = Login(url="/api/City/InternationalCityList?str.value=zh",
-                      data=None,
-                      method="Get")
+    oppologin = Login()
     #   oppologin.doBusinessHttp()  # 一次请求
     # press = oppologin.PressureRequest(500)  # 一次压力测试 请求10次
     # press = oppologin.Duration(5, 5)  # 持续压测5次，每次5个请求
