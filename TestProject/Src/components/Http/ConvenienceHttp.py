@@ -58,7 +58,7 @@ class ConvenienceHttp(Request):
         '''
         发起请求
         '''
-        self.request(method, self.url, self.data)
+        return self.request(method, self.url, self.data)
 
     def PressureAfter(self, parameter, thread):
         '''

@@ -9,4 +9,4 @@ class BusinessHttp(ConvenienceHttp):
         '''
         业务请求
         '''
-        self.DoRequest(self.method)
+        return self.DoRequest(self.method)

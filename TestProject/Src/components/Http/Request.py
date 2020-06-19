@@ -6,6 +6,7 @@ class Request:
     '''
     请求基类
     '''
+
     def __init__(self, beforRequest, afterRequest):
         self.beforRequest = beforRequest
         self.afterRequest = afterRequest
@@ -91,7 +92,9 @@ class Request:
                             headers=self.Header,
                             cookies=self.cookie)
         }
-        self.afterRequest(switch[method], self)
+        response = switch[method]
+        self.afterRequest(response, self)
+        return response
 
 
 # if __name__ == "__main__":
