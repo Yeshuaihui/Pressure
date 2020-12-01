@@ -21,7 +21,8 @@ class LogComponents():
             if (fileName is None and LogComponents.file_Name is None):
                 fileName = "result%s.txt" % (LogComponents.getTimeStr())
                 LogComponents.file_Name = fileName
-            dirpath = "%s/Src/Test/Result/" % (os.getcwd())
+            print(dir(os))
+            dirpath = "%s/Src/Result/" % (os.getcwd())
             if (not os.path.exists(dirpath)):
                 os.makedirs(dirpath)
             LogComponents.staticFile = open(dirpath + LogComponents.file_Name,
