@@ -12,9 +12,10 @@ class testApi(BusinessHttp):
     def after(self, resp, req):
         if resp.ok:
             Responsetext = resp.text
+            print(Responsetext)
             if Responsetext.startswith(u'\ufeff'):
                 Responsetext = Responsetext.encode('utf8')[3:].decode('utf8')
-            dic = json.loads(Responsetext, encoding=resp.apparent_encoding)
+            dic = json.loads(Responsetext)
             print(dic)
             # if (dic["code"] == 0):
             #     Config[self.Project]["Header"] = {
